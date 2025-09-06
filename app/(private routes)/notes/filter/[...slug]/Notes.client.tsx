@@ -1,7 +1,7 @@
 "use client";
 import NoteList from "@/components/NoteList/NoteList";
 import css from "./NotePage.module.css";
-import { fetchNotes } from "@/lib/api/api";
+import { fetchNotes } from "@/lib/api/clientApi";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import { useDebouncedCallback } from "use-debounce";
