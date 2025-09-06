@@ -10,21 +10,35 @@ export const checkServerSession = async () => {
   });
   return responce;
 };
+
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
 }
 
-export async function fetchNotes(
-  page: number,
+export const fetchNotes = async (
   search: string,
-  tag: string
-): Promise<FetchNotesResponse> {
-  const { data } = await nextServer.get<FetchNotesResponse>("/notes", {
-    params: { page, search, perPage: 12, ...(tag && { tag }) },
-  });
-  return data;
-}
+  page: number,
+  tag?: string | null
+): Promise<FetchNotesResponse> => {
+  const cookieStore = await cookies();
+  const params = {
+    params: {
+      page,
+      search,
+      perPage: 9,
+      tag,
+    },
+    headers: { Cookie: cookieStore.toString() },
+  };
+
+  const fetchNotesResponse = await nextServer.get<FetchNotesResponse>(
+    "/notes",
+    params
+  );
+
+  return fetchNotesResponse.data;
+};
 
 export async function fetchNoteById(id: string): Promise<Note> {
   const { data } = await nextServer.get<Note>(`/notes/${id}`);

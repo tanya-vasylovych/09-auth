@@ -1,10 +1,10 @@
 "use client";
 import css from "./AuthNavigation.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
 import TagsMenu from "../TagsMenu/TagsMenu";
 import Link from "next/link";
 import { logout } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const AuthNavigation = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const AuthNavigation = () => {
           </li>
           <li className={css.navigationItem}>
             <Link
-              href="/profile"
+              href={"/profile"}
               prefetch={false}
               className={css.navigationLink}
             >
