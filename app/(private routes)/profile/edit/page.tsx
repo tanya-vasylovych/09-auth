@@ -5,22 +5,24 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
 import { getMe, updateUsername } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const ProfileEditPage = () => {
   const router = useRouter();
-  const [user, setUser] = useState<{
+  const setUser = useAuthStore((state) => state.setUser);
+  const [user, setLocalUser] = useState<{
     username: string;
     email: string;
     avatar: string;
   } | null>(null);
-  const [username, setUsername] = useState("");
+  const [username, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       const data = await getMe();
-      setUser(data);
-      setUsername(data.username);
+      setLocalUser(data);
+      setUserName(data.username);
     };
     fetchUser();
   }, []);
@@ -28,7 +30,8 @@ const ProfileEditPage = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await updateUsername(username);
+      const updatedUser = await updateUsername(username);
+      setUser(updatedUser);
       router.push("/profile");
     } catch (error) {
       console.error("Failed to update username", error);
@@ -37,11 +40,11 @@ const ProfileEditPage = () => {
   };
 
   const handleCancel = () => {
-    router.push("/profile");
+    router.back();
   };
 
   if (!user) {
-    return <div>Завантаження...</div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -72,7 +75,7 @@ const ProfileEditPage = () => {
               type="text"
               className={css.input}
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
 

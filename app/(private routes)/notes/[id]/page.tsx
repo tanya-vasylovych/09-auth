@@ -1,4 +1,4 @@
-import { fetchNoteById } from "@/lib/api/clientApi";
+import { fetchNoteById } from "@/lib/api/serverApi";
 import {
   dehydrate,
   HydrationBoundary,
@@ -21,7 +21,7 @@ export const generateMetadata = async ({
     openGraph: {
       title: note.title,
       description: note.content.slice(0, 15),
-      url: `https://08.zustand.vercel.app/notes/${id}`,
+      url: `https://09-auth-2fvb.vercel.app/notes/${id}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/og-meta.jpg",

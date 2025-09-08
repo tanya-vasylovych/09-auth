@@ -2,6 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import { getMe } from "@/lib/api/serverApi";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await getMe();
+
+  return {
+    title: `${user.username} - NoteHub`,
+    description: "An application for note-taking and organization",
+    openGraph: {
+      title: `${user.username} - NoteHub`,
+      description: "An application for note-taking and organization",
+      url: "https://09-auth-2fvb.vercel.app/",
+      images: [
+        {
+          url: user.avatar,
+          width: 1200,
+          height: 630,
+          alt: `${user.username} avatar`,
+        },
+      ],
+    },
+  };
+}
 
 const Profile = async () => {
   const user = await getMe();

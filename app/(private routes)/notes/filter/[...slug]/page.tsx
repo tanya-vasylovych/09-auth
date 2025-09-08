@@ -1,4 +1,4 @@
-import { fetchNotes } from "@/lib/api/clientApi";
+import { fetchNotes } from "@/lib/api/serverApi";
 import {
   dehydrate,
   HydrationBoundary,
@@ -22,7 +22,7 @@ export const generateMetadata = async ({
       title: slug[0] === "All%20notes" ? "All notes" : `${slug[0]} notes`,
       description:
         slug[0] === "All%20notes" ? "All notes" : `Notes with tag ${slug[0]}`,
-      url: `https://08.zustand.app/notes/filter/${slug[0]}`,
+      url: `https://09-auth-2fvb.vercel.app/notes/filter/${slug[0]}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -40,7 +40,7 @@ const Notes = async ({ params }: NotesProps) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["notes", tag],
-    queryFn: () => fetchNotes(1, "", tag),
+    queryFn: () => fetchNotes("", 1, tag),
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
