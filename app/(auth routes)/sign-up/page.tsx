@@ -6,7 +6,7 @@ import { register } from "@/lib/api/clientApi";
 import { ApiError } from "next/dist/server/api-utils";
 import css from "./SignUpPage.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
-import { Credentials } from "@/types/users";
+import { Credentials } from "@/types/user";
 
 const SignUp = () => {
   const router = useRouter();

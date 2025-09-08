@@ -1,5 +1,5 @@
 import { Note } from "@/types/note";
-import { User } from "@/types/users";
+import { User } from "@/types/user";
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
 

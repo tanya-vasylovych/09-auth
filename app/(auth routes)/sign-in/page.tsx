@@ -6,7 +6,7 @@ import { login } from "@/lib/api/clientApi";
 import { ApiError } from "next/dist/server/api-utils";
 import css from "./SignInPage.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
-import { Credentials } from "@/types/users";
+import { Credentials } from "@/types/user";
 
 const SignIn = () => {
   const router = useRouter();
